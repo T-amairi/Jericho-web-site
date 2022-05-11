@@ -38,7 +38,7 @@
             </ul>
 		</nav>
 	</div>	
-			
+
 		<header class="first-header" id="home">
 			<div class="jericho-home" style="padding:48px">
 				<span class="jericho-slogan">Jericho, an international Blockchain project</span><br>
@@ -141,20 +141,43 @@
 		<div class="jericho" style="padding:128px 16px" id="jericho">
 			<h2 class="center", id="jericho-sub"><i class="fa-solid fa-diagram-project"></i>JERICHO</h2>
 			<br/>
-			<p class="centered-paragraph">Nouveau consensus</p>
+			<p class="centered-paragraph">New consensus</p>
 			<br/>
 			<div class="jericho-mission">
-			<p>
-				Nous souhaitons voir sur le marché une cryptomonnaie décentralisée et adaptée a l'IoT.
-				Or, les cryptomonnaies centrées autour de l'IoT sont centralisées, ce qui est à l’opposé de quoi une crypto-monnaie doit fournir selon nous.
-
-				C’est pourquoi nous allons durant ce projet, proposer un concept de cryptomonnaie adapté au marché de l’IoT. Celui devra donc satisfaire certaines
-				propriétés :
-				— qu’il soit scalable, vu le nombre grandissant de machines connectées.
-				— qu’il soit sécurisé contre toute forme d’attaques.
-				— qu’il ait des frais limités pour éviter la perte dans la valeur échangée.
-				Pour cela, nous avons construit notre propre consensus.
+			<p class="text">
+				We want to see a decentralized, IoT-friendly cryptocurrency on the market. However, the crypto-currencies centered around the IoT are centralized, 
+				which is the opposite of what a crypto-currency should provide according to us. This is why we will during this project, propose a concept of crypto-currency 
+				adapted to the IoT market.<br/>
+				We want it to check scalability, security and low cost properties. For this, we have built our own consensus named Jericho.
 			</p>
+			<p class="text">
+				Due to the decentralized nature of the network, consensus is an essential protocol that allows transactions to be conducted
+				securely and prevents fraudulent transactions from being carried out. <br/>
+				Simply put, consensus is the way entities in the network agree on the validity of a transaction. <br/>
+
+				We have divided our network into nodes, and thus, during a transaction, the consensus will only take place in the lowest level nodes,
+				directly concerned by this transaction. We have several architectures, based on different elements, either geographical or merit-based. 
+			</p>
+			<p class="text">
+				We will implement a mobile node module that will take care of randomly sending transactions to fixed nodes using an exponential law. Moreover, clusters will only be present at the leaf level.
+
+				First, the mobile node generates a transaction and sends it to two leaves to be validated.
+				The fixed nodes that received the transaction initiate a consensus within their cluster respectively. 
+				If they cannot initiate a consensus because it is not yet their round, the transaction is hidden in a queue to be processed later. 
+				When the consensus result is obtained, it is sent to the smallest common ancestor between the two fixed nodes processing the request. 
+				When routing the request to the responsible fixed node, the path is recorded with the transaction, i.e., which nodes forwarded the request. 
+				When the transaction is received by the responsible fixed node, it checks the result of the consensus of both fixed nodes.
+				If one of them rejects the transaction, the transaction is also rejected. The response is then sent to both fixed nodes using the registered paths. As with the fixed nodes, a responsible fixed node can hide a request until it receives the result of the second to receive the result of the second consensus. 
+ 				Finally, the result is also broadcast throughout the network and the fixed nodes send the result of the transaction back to the mobile node.
+			</p>
+			<p class="text">
+				Here is an illustrative video of the protocol, NFs represents fixed broadcast nodes, Nfr represents fixed responsible nodes and Nm represents mobile nodes.
+			</p>
+			<p align="center" style="background: none transparent;">
+				<br/>
+				<iframe src="../jericho.mp4" style="border: none; display:block; background-color: transparent;"  width="1500px" height="400px" frameborder="0" allowtransparency='true'></iframe>
+			</p>
+				
 			</div>
 		</div> 
 		
@@ -165,16 +188,35 @@
 			<p class="centered-paragraph">Network Structure</p>
 			<br/>
 			<div class="reseau-structure">
-			<p>
-				Nous souhaitons voir sur le marché une cryptomonnaie décentralisée et adaptée a l'IoT.
-				Or, les cryptomonnaies centrées autour de l'IoT sont centralisées, ce qui est à l’opposé de quoi une crypto-monnaie doit fournir selon nous.
+			<p class="text">
+				To better understand the consensus invoked, we need to discuss the structure of the network in more detail.
 
-				C’est pourquoi nous allons durant ce projet, proposer un concept de cryptomonnaie adapté au marché de l’IoT. Celui devra donc satisfaire certaines
-				propriétés :
-				— qu’il soit scalable, vu le nombre grandissant de machines connectées.
-				— qu’il soit sécurisé contre toute forme d’attaques.
-				— qu’il ait des frais limités pour éviter la perte dans la valeur échangée.
-				Pour cela, nous avons construit notre propre consensus.
+				We will distinguish two types of nodes in the network, namely fixed and mobile nodes.
+
+				Fixed nodes form clusters and have a single purpose: to validate transactions, update the local ledger and finally disseminate its new version. 
+				They cannot move, however, they have different roles to fulfill. They can be broadcasters or managers.
+				
+				As for the mobile nodes, they are simply the users of the network and the only action they can perform is to issue transactions to the fixed nodes.
+				transactions to the fixed nodes. Moreover, because of their character, they can connect and disconnect at will from one cluster to another.
+				These nodes represent, in other words, any IoT object, i.e.: phones, connected watches, computers, payment terminals, etc.
+				payment terminals, etc.
+			</p>
+			<p class="text">
+				Among the fixed nodes are the broadcast nodes that act as intermediaries between the network and the mobile nodes.
+				They receive transaction requests from the nodes and then broadcast them to their fixed parent nodes. 
+				Finally, when a transaction is validated by the network, they communicate it to the mobile nodes concerned.
+
+				There are also responsible nodes that have no communication with mobile nodes and are in contact only with fixed nodes. 
+				Their role is to validate transactions at their level, i.e., to verify in their local ledgers that the transactions are free 
+				of conflicts and to disseminate the transactions.
+				They have the role of validating the transactions at their level, i.e. checking in their local ledgers if the transactions 
+				have no conflicts and broadcasting the validated transactions to the whole network so that the fixed and mobile nodes can update their local ledgers.
+			</p>
+			<p class="text">
+				The structuring of the network is done via an n-ary tree where the leaves represent only fixed broadcasting nodes 
+				and the rest of the fixed responsible nodes. The important notion behind this structuring is that it allows
+				a geographical decomposition by different levels: by city, by department, by region, by country and by continent. 
+				The number of levels has no limit and depends on the desired implementation.
 			</p>
 			</div>
 		</div>
@@ -185,16 +227,20 @@
 			<p class="centered-paragraph">Business Model</p>
 			<br/>
 			<div class="business-model">
-			<p>
-				Nous souhaitons voir sur le marché une cryptomonnaie décentralisée et adaptée a l'IoT.
-				Or, les cryptomonnaies centrées autour de l'IoT sont centralisées, ce qui est à l’opposé de quoi une crypto-monnaie doit fournir selon nous.
+			<p class="text">
+				In order to finance the development of Jericho, we chose to design tokens associated with the Jericho blockchain to organize a fundraising 
+				in the form of an Initial Coin Offering (ICO).
 
-				C’est pourquoi nous allons durant ce projet, proposer un concept de cryptomonnaie adapté au marché de l’IoT. Celui devra donc satisfaire certaines
-				propriétés :
-				— qu’il soit scalable, vu le nombre grandissant de machines connectées.
-				— qu’il soit sécurisé contre toute forme d’attaques.
-				— qu’il ait des frais limités pour éviter la perte dans la valeur échangée.
-				Pour cela, nous avons construit notre propre consensus.
+				To do an ICO, we will soon define a White Paper associated with Jericho.
+				This document will further explain the technical characteristics of Jericho and will specify how the
+				This document will further explain the technical features of Jericho and will specify how the funds raised will be distributed so that investors can plan ahead.
+				It will also describe our services and how to associate tokens with them as well as the parameters for selling these tokens, i.e. the start and end dates of the tokens.
+				the start and end dates of the sale, the initial price, the evolutionary agenda, the total number of tokens that will be available or the number created each period if the
+				the number created in each period if the sale is spread over several periods.
+
+				The initial launch price will be conditioned by the success of the fundraising which must be done beforehand.
+				This price must anticipate, among other things, the transaction costs while reflecting
+				the service provided. Its evolution will be guided by market speculation and the level of activity of the Jericho community.
 			</p>
 			</div>
 		</div>
@@ -206,16 +252,25 @@
 			<p class="centered-paragraph">Frequent questions</p>
 			<br/>
 			<div class="faq">
-			<p>
-				Nous souhaitons voir sur le marché une cryptomonnaie décentralisée et adaptée a l'IoT.
-				Or, les cryptomonnaies centrées autour de l'IoT sont centralisées, ce qui est à l’opposé de quoi une crypto-monnaie doit fournir selon nous.
+			<p class="text">
+				What is a ledger?
 
-				C’est pourquoi nous allons durant ce projet, proposer un concept de cryptomonnaie adapté au marché de l’IoT. Celui devra donc satisfaire certaines
-				propriétés :
-				— qu’il soit scalable, vu le nombre grandissant de machines connectées.
-				— qu’il soit sécurisé contre toute forme d’attaques.
-				— qu’il ait des frais limités pour éviter la perte dans la valeur échangée.
-				Pour cela, nous avons construit notre propre consensus.
+				It is a digital transaction recording system in which transactions and their details are recorded in one or more 
+				in one or more places at the same time.
+			</p>
+			<p class="text">
+			</br>
+			What is the Internet of Things? The Internet of Things brings together the Internet and objects, places and physical environments.
+			It is about objects connected to the Internet allowing a communication between physical goods and their digital 
+			and their digital existence, as a sensor. 
+			</p>
+			<p class="text">
+				<br/>
+				Why create Jericho instead of using Proof of Work? 
+
+				Although Proof of Work is a consensus algorithm that masters the security aspect, its rigidity weakens its scalability because of 
+				the important time brought to the calculation. Moreover, Proof of Work can only work with transaction fees in order to remunerate the miners.
+				It is therefore not adapted for the Internet of Things. 
 			</p>
 			</div>
 		</div>
